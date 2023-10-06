@@ -58,17 +58,14 @@ function sendPastChats(widgetName = "", widgetCode = "", amount = 20) {
     
 }
 
+
 function raiseMessageEvent(node) {
     var eventData = node['$']
-    //console.log(eventData);
-    //var authorName = eventData.content.childNodes[1].childNodes[2].childNodes[0].data;
-    var authorName = eventData.content.querySelector("#author-name").data;
+    var authorName = node.querySelector("#author-name").innerText;
 
-    //add profile picture
-    var authorPicture = eventData["author-photo"].$["img"].src;
-    //authorPicture = updateProfileImageSize(authorPicture);
+    var authorPicture = node.querySelector("#author-photo #img").src;
 
-    var message = eventData.message.innerHTML;
+    var message = node.querySelector("#message").innerHTML;
     message = updateEmoteSize(message);
 
     var url = window.location.href;
@@ -91,16 +88,18 @@ function raiseMessageEvent(node) {
     } catch (error) { }
     msgId = node.id
 
-    for (var i = 0; i < eventData.content.childNodes[1].$["chat-badges"].childNodes.length; i++) {       
-        let badgeType = node.$.content.childNodes[1].$["chat-badges"].childNodes[i].__data.type;
+    var badgeNodes = node.querySelector("#chat-badges").children;
+
+    for (var i = 0; i < badgeNodes.length; i++) {       
+        let badgeType = badgeNodes[i].__data.type;
 
         if (badges != "") badges += ",";
-        badges += (node.$.content.childNodes[1].$["chat-badges"].childNodes[i].__data.type + '/1');
+        badges += (badgeNodes[i].__data.type + '/1');
 
         let url = "";        
         if (badgeType === "member") {
             isMember = "1"
-            url = eventData.content.childNodes[1].$["chat-badges"].childNodes[i].children["image"].childNodes[0].src;
+            url = badgeNodes[i].children["image"].children[0].src;
             if (userType == "") userType = "member";
         }
         if (badgeType === "moderator") {
@@ -164,18 +163,17 @@ function raiseMessageEvent(node) {
 
 function raiseMembershipEvent(node) {
     var eventData = node['$']
-    //console.log(eventData);
-    //var authorName = eventData.content.childNodes[1].childNodes[2].childNodes[0].data;
-    var authorName = eventData["header-content-inner-column"].children[0].children["author-name"].innerText;
+    var authorName = node.querySelector("#author-name").innerText;    
 
     var memberBadge = "";
-    let badgeHolder = eventData["header-content-inner-column"].children[0].children["chat-badges"];
+    //let badgeHolder = eventData["header-content-inner-column"].children[0].children["chat-badges"];
+    let badgeHolder = node.querySelector("#chat-badges");    
     if (badgeHolder.children.length >= 1) {
-        memberBadge = badgeHolder.children[0].children["image"].children[0].src;
+        memberBadge = badgeHolder.children[badgeHolder.children.length - 1].querySelector("#image img").src;
     }
 
-    let primaryText = eventData["header-primary-text"].innerText;
-    let memberTier = eventData["header-subtext"].innerText;
+    let primaryText = node.querySelector("#header-primary-text").innerText;   
+    let memberTier = node.querySelector("#header-subtext").innerText;
     //Welcome to [Membership]! for 1st time join
     //Membership name after that
     //parse months
@@ -188,9 +186,9 @@ function raiseMembershipEvent(node) {
     }
     if (months == "") months = 0;
 
-    var authorPicture = eventData["header"].children["author-photo"].children["img"].src;
+    var authorPicture = node.querySelector("#author-photo #img").src;
 
-    var message = eventData.message.innerHTML;
+    var message = node.querySelector("#message").innerHTML;
     let msgId = node.id;
 
     var detail = {
@@ -218,18 +216,20 @@ function raiseMembershipEvent(node) {
 function raiseMembershipGiftEvent(node) {
     var eventData = node['$']
     //console.log(eventData)
-    var authorName = eventData["header"].children["header"].children["content"].children["header-content"].children["header-content-primary-column"].children["header-content-inner-column"].children[0].children["author-name"].innerText;
+    var authorName = node.querySelector("#author-name").innerText;
+
     //add member badge url
     var memberBadge = "";
-    let badgeHolder = eventData["header"].children["header"].children["content"].children["header-content"].children["header-content-primary-column"].children["header-content-inner-column"].children[0].children["chat-badges"];
+
+    let badgeHolder = node.querySelector("#chat-badges");
     if (badgeHolder.children.length >= 1) {
-        memberBadge = badgeHolder.children[badgeHolder.children.length-1].children["image"].children[0].src;
+        memberBadge = badgeHolder.children[badgeHolder.children.length - 1].querySelector("#image img").src;
     }
 
     //add author picture url
-    var authorPicture = eventData["header"].children["header"].children["content"].children["author-photo"].children["img"].src;
+    var authorPicture = node.querySelector("#author-photo #img").src;
     
-    var message = eventData["header"].children["header"].children["content"].children["header-content"].children["header-content-primary-column"].children["header-content-inner-column"].children["primary-text"].innerText;
+    var message = node.querySelector("primary-text").innerText;
 
     var amount = 1;
     let words = message.split(" ");
@@ -263,13 +263,13 @@ function raiseMembershipGiftEvent(node) {
 function raiseMembershipRedemptionEvent(node) {
     var eventData = node['$']
     console.log(eventData)
-    var authorName = eventData["content"].children[1].children["author-name"].innerText;
+    var authorName = node.querySelector("#author-name").innerText;
     //add author picture url
-    var authorPicture = node.children["author-photo"].children["img"].src;
+    var authorPicture = node.querySelector("#author-photo #img").src;
 
 
-    var message = eventData["message"].innerText;
-    var gifter = eventData["message"].children[1].innerText;
+    var message = node.querySelector("#message").innerText;
+    var gifter = node.querySelector("#message").children[1].innerText;
 
     var detail = {
         "listener": "gift-redemption",
@@ -294,17 +294,17 @@ function raiseMembershipRedemptionEvent(node) {
 function raiseSuperchatEvent(node) {
     var eventData = node['$']
     //console.log(eventData)
-    var authorName = eventData["author-name-chip"].innerText;
+    var authorName = node.querySelector("#author-name").innerText;
     var message = eventData.message.innerHTML;
     //add member badge url
     var memberBadge = "";
-    let badgeHolder = eventData["author-name-chip"].children[0].children["chat-badges"];
+    let badgeHolder = node.querySelector("#chat-badges");
     if (badgeHolder.children.length >= 1) {
-        memberBadge = badgeHolder.children[0].children["image"].children[0].src;
+        memberBadge = badgeHolder.children[badgeHolder.children.length - 1].querySelector("#image img").src;
     }
     //add author picture url
-    var authorPicture = eventData["header"].children["author-photo"].children["img"].src;
-    var amount = node.$["purchase-amount"].innerText;
+    var authorPicture = node.querySelector("#author-photo #img").src;
+    var amount = node.querySelector("#purchase-amount").innerText;
 
     var tier, primary, secondary;
     if (node.attributes.style.value.includes("rgba(30,136,229,1)")) {
@@ -378,13 +378,13 @@ function raiseSuperchatEvent(node) {
 function raiseStickerEvent(node) {
     var eventData = node['$']
     //console.log(eventData)
-    var authorName = eventData["author-name-chip"].innerText;
+    var authorName = node.querySelector("#author-name").innerText;
     //add member badge url
     var memberBadge = "";
     //add author picture url
-    var authorPicture = eventData["author-info"].children["author-photo"].children["img"].src;
+    var authorPicture = node.querySelector("#author-photo #img").src;
 
-    var amount = node.$["purchase-amount-chip"].innerText
+    var amount = node.querySelector("#purchase-amount-chip").innerText;
 
     var tier, primary, secondary;
     if (node.attributes.style.value.includes("rgba(30,136,229,1)")) {
@@ -428,7 +428,7 @@ function raiseStickerEvent(node) {
         secondary = "rgba(0,0,0,1)";
     }
 
-    var stickerUrl = node.$.sticker.$.img.currentSrc.toString();
+    var stickerUrl = node.querySelector("#sticker #img").src.toString();
     
     var detail = {
         "listener": "sticker-latest",
