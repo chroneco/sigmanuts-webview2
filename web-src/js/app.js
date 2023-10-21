@@ -1,4 +1,4 @@
-const CURRENTVERSION = 'BETAv0.6h-chronut'
+const CURRENTVERSION = 'BETAv0.6i-chronut'
 
 var activeWidget = "";
 var groupList = [];

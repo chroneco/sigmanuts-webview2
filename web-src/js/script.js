@@ -229,7 +229,7 @@ function raiseMembershipGiftEvent(node) {
     //add author picture url
     var authorPicture = node.querySelector("#author-photo #img").src;
     
-    var message = node.querySelector("primary-text").innerText;
+    var message = node.querySelector("#primary-text").innerText;
 
     var amount = 1;
     let words = message.split(" ");
