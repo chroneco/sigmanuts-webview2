@@ -84,17 +84,17 @@ function raiseMessageEvent(node) {
 
     userId = "";
     try {
-        userId = node.hostElement.__data.data.authorExternalChannelId;
+       // userId = node.hostElement.__data.data.authorExternalChannelId;
     } catch (error) { }
     msgId = node.id
 
     var badgeNodes = node.querySelector("#chat-badges").children;
 
     for (var i = 0; i < badgeNodes.length; i++) {       
-        let badgeType = badgeNodes[i].__data.type;
+        let badgeType = badgeNodes[i].type;
 
         if (badges != "") badges += ",";
-        badges += (badgeNodes[i].__data.type + '/1');
+        badges += (badgeType + '/1');
 
         let url = "";        
         if (badgeType === "member") {
@@ -137,7 +137,7 @@ function raiseMessageEvent(node) {
                     "member": isMember,
                     "tmi-sent-ts": "",
                     "turbo": "",
-                    "user-id": userId,
+                    "user-id": '',
                     "user-type": userType
                 },
                 "nick": authorName,
@@ -519,7 +519,7 @@ function startStream() {
             }
 
             for (j = 0; j < mutationList[i].removedNodes.length; j++) {
-                var removed_id = mutationList[i].removedNodes[j].__data.id
+                var removed_id = mutationList[i].removedNodes[j].id
                 var detail = {
                     "listener": "delete-message",
                     "event": {
