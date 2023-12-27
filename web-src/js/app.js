@@ -48,7 +48,7 @@ function appendSetting(setting, el) {
 
 async function retrieveData(widgetName) {
     if (!widgetName) return;
-    fetch(`widgets/${widgetName}/src/data.txt?version=${makeid(10)}`)
+    fetch(`widgets-bili/${widgetName}/src/data.txt?version=${makeid(10)}`)
         .then(response => {
             console.log(response)
             if (response.ok) {
@@ -104,7 +104,7 @@ async function updateUI() {
         $('#widget-select option[value="idle"]').remove();
         $('#widget-select').selectmenu('refresh')
     } */
-    fetch(`widgets/${activeWidget}/src/fields.json?version=${makeid(10)}`)
+    fetch(`widgets-bili/${activeWidget}/src/fields.json?version=${makeid(10)}`)
         .then(response => {
             console.log(response)
             if (response.ok) {
@@ -202,7 +202,7 @@ function handleFieldSettings(data) {
                     var key = evt.currentTarget.id.split('_')[2]
                     widgetData[key] = $(evt.currentTarget).val()
                     updateData(activeWidget, widgetData);
-                    setIframeUrl(`widgets/${activeWidget}/widget.html`);
+                    setIframeUrl(`widgets-bili/${activeWidget}/widget.html`);
                 });
                 break;
 
@@ -222,7 +222,7 @@ function handleFieldSettings(data) {
                     var key = evt.currentTarget.id.split('_')[2];
                     widgetData[key] = evt.currentTarget.checked;
                     updateData(activeWidget, widgetData);
-                    setIframeUrl(`widgets/${activeWidget}/widget.html`);
+                    setIframeUrl(`widgets-bili/${activeWidget}/widget.html`);
                 });
                 break;
 
@@ -240,7 +240,7 @@ function handleFieldSettings(data) {
                     var key = evt.currentTarget.id.split('_')[2];
                     widgetData[key] = evt.currentTarget.value;
                     updateData(activeWidget, widgetData);
-                    setIframeUrl(`widgets/${activeWidget}/widget.html`);
+                    setIframeUrl(`widgets-bili/${activeWidget}/widget.html`);
                 })
 
                 break;
@@ -282,7 +282,7 @@ function handleFieldSettings(data) {
                     var key = evt.currentTarget.id.split('_')[2];
                     widgetData[key] = evt.currentTarget.value;
                     updateData(activeWidget, widgetData);
-                    setIframeUrl(`widgets/${activeWidget}/widget.html`);
+                    setIframeUrl(`widgets-bili/${activeWidget}/widget.html`);
                 })
 
                 break;
@@ -325,7 +325,7 @@ function handleFieldSettings(data) {
                     $(`#${evt.currentTarget.id}_value`).text(`Value: ${evt.currentTarget.value}`);
                     widgetData[key] = evt.currentTarget.value;
                     updateData(activeWidget, widgetData);
-                    setIframeUrl(`widgets/${activeWidget}/widget.html`);
+                    setIframeUrl(`widgets-bili/${activeWidget}/widget.html`);
                 })
 
                 break;
@@ -382,6 +382,11 @@ function handleFieldSettings(data) {
 ////////////////////////////////////////////////////////////////////////////////
 //                              MAIN SCRIPT                                   //
 ////////////////////////////////////////////////////////////////////////////////
+
+let c = new signalR.HubConnectionBuilder()
+    .withUrl("http://localhost:6970/stream");
+
+console.log(c);
 
 const connection = new signalR.HubConnectionBuilder()
     .withUrl("http://localhost:6970/stream")
@@ -456,13 +461,13 @@ function hideIframe() {
 }
 
 $("#preview-iframe-alert").on("click", function () {
-    setIframeUrl(`widgets/${activeWidget}/widget.html`)
+    setIframeUrl(`widgets-bili/${activeWidget}/widget.html`)
 });
 
 $("#preview-iframe-button").on("click", function () {
 
     if (!$('iframe').attr('src')) {
-        setIframeUrl(`widgets/${activeWidget}/widget.html`);
+        setIframeUrl(`widgets-bili/${activeWidget}/widget.html`);
         return;
     }
 
@@ -582,6 +587,9 @@ function changeUrl(animate = true) {
 
     //only accepts valid chat links
     if (url) {
+        
+            $('#link-input').val(url);
+        /*
         if (url.startsWith("https://youtube.com/live/")) {
             url = "https://www.youtube.com/live_chat?v=" + url.replace("https://youtube.com/live/", "");
             $('#link-input').val(url);
@@ -593,12 +601,12 @@ function changeUrl(animate = true) {
         else if (url.startsWith("https://studio.youtube.com/video/")) {
             url = "https://www.youtube.com/live_chat?v=" + url.replace("https://studio.youtube.com/video/", "").replace("/livestreaming", "");
             $('#link-input').val(url);
-        }
+        }*/
     }
-
+    /*
     if (!isValid(url)) {
         valid = false;
-    }
+    }*/
 
     //if from login page
     if (!valid && animate == false) {
@@ -656,7 +664,7 @@ function changeUrl(animate = true) {
 
 function isValid(url) {
     if (!url) return false;
-    return url.startsWith("https://www.youtube.com/live_chat?") || url.startsWith("https://studio.youtube.com/live_chat?");
+    return url.startsWith("https://live.bilibili.com");
 }
 
 $('#refresh-widget').click(() => {
@@ -762,7 +770,7 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function fetchWidgets() {
-    fetch(`widgets/widgets.ini?version=${makeid(10)}`)
+    fetch(`widgets-bili/widgets.ini?version=${makeid(10)}`)
         .then(response => response.text())
         .then(text => {
             var lines = text.split('\n')
@@ -780,7 +788,7 @@ function fetchWidgets() {
             $('#widget-select').prepend(`<option disabled value="idle" id="idle">Select widget</option>`)
             $('#widget-select').append(`<option value="add" id="add">Create widget...</option>`)
 
-            fetch(`widgets/activeWidget.active?version=${makeid(10)}`)
+            fetch(`widgets-bili/activeWidget.active?version=${makeid(10)}`)
                 .then(response => response.text())
                 .then(text => {
                     activeWidget = text.replace(/\\"/g, '"').replace(/(\r\n|\n|\r)/gm, "");
@@ -860,7 +868,7 @@ $('#widget-select').on('selectmenuchange', (obj) => {
 
     activeWidget = $('#widget-select-button .ui-selectmenu-text').text().replace(/(\r\n|\n|\r)/gm, "");
 
-    setIframeUrl(`widgets/${activeWidget}/widget.html`);
+    setIframeUrl(`widgets-bili/${activeWidget}/widget.html`);
 
     window.chrome.webview.postMessage(obj);
     retrieveData(activeWidget)
@@ -879,7 +887,7 @@ $('.backdrop-wrapper').on('click', (e) => {
 
 $('#copy-link').on('click', () => {
     var copyField = document.getElementById('copy-link-text');
-    copyField.value = `localhost:6969/widgets/${activeWidget}/widget.html`;
+    copyField.value = `localhost:6969/widgets-bili/${activeWidget}/widget.html`;
     copyField.select();
     navigator.clipboard.writeText(copyField.value);
 

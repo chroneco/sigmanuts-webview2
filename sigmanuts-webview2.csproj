@@ -8,7 +8,8 @@
     <UseWPF>true</UseWPF>
 	<PublishSingleFile>true</PublishSingleFile>
   <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-  <ApplicationIcon>sigmanuts.ico</ApplicationIcon>
+  <ApplicationIcon>sigmanuts icon-bili.ico</ApplicationIcon>
+  <AssemblyName>sigmanuts-webview2-bili</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -50,11 +51,23 @@
     <None Remove="web-src\js\jquery-3.6.3.min.js" />
     <None Remove="web-src\js\jquery-ui.min.js" />
     <None Remove="web-src\js\jszip.min.js" />
+    <None Remove="web-src\js\script - Copy.js" />
     <None Remove="web-src\js\script.js" />
     <None Remove="web-src\js\settings.js" />
     <None Remove="web-src\js\signalr.js" />
     <None Remove="web-src\js\store.js" />
+    <None Remove="web-src\widgets-bili\Bili\basic.js" />
+    <None Remove="web-src\widgets-bili\Bili\jquery-3.6.0.js" />
+    <None Remove="web-src\widgets-bili\Bili\sigmanuts.js" />
+    <None Remove="web-src\widgets-bili\Bili\src\data.txt" />
+    <None Remove="web-src\widgets-bili\Bili\widget.html" />
+    <None Remove="web-src\widgets-bili\defaultWidgets.ini" />
     <None Remove="web-src\widgets\defaultWidgets.ini" />
+    <None Remove="web-src\widgets\Bili\basic.js" />
+    <None Remove="web-src\widgets\Bili\jquery-3.6.0.js" />
+    <None Remove="web-src\widgets\Bili\sigmanuts.js" />
+    <None Remove="web-src\widgets\Bili\src\data.txt" />
+    <None Remove="web-src\widgets\Bili\widget.html" />
     <None Remove="web-src\widgets\YouTube\basic.js" />
     <None Remove="web-src\widgets\YouTube\jquery-3.6.0.js" />
     <None Remove="web-src\widgets\YouTube\sigmanuts.js" />
@@ -64,6 +77,9 @@
 
   <ItemGroup>
     <Content Include="Resources\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\icon-bili.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Sigmanuts.png">
@@ -147,6 +163,9 @@
     <Content Include="web-src\js\jszip.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="web-src\js\script - Copy.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="web-src\js\script.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -159,7 +178,40 @@
     <Content Include="web-src\js\store.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="web-src\widgets-bili\Bili\basic.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets-bili\Bili\jquery-3.6.0.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets-bili\Bili\sigmanuts.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets-bili\Bili\src\data.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets-bili\Bili\widget.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets-bili\defaultWidgets.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="web-src\widgets\defaultWidgets.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets\Bili\basic.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets\Bili\jquery-3.6.0.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets\Bili\sigmanuts.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets\Bili\src\data.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets\Bili\widget.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="web-src\widgets\YouTube\basic.js">
@@ -194,6 +246,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="web-src\tutorial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="web-src\widgets-bili\Bili\src\fields.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="web-src\widgets-bili\Bili\youtube.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="web-src\widgets\Bili\src\fields.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="web-src\widgets\Bili\youtube.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="web-src\widgets\YouTube\src\fields.json">

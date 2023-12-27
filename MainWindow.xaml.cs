@@ -43,7 +43,7 @@ namespace sigmanuts_webview2
 
         private string chatUrl = "http://localhost:6969/tutorial.html";//"https://www.youtube.com/live_chat?v=jfKfPfyJRdk"
         private string appUrl = "http://localhost:6969/app.html";
-        private string widgetUrl = $"http://localhost:6969/widgets/{currentWidget}/widget.html";
+        private string widgetUrl = $"http://localhost:6969/widgets-bili/{currentWidget}/widget.html";
 
         private SimpleHTTPServer myServer;
 
@@ -52,7 +52,7 @@ namespace sigmanuts_webview2
             try
             {
                 InitializeComponent();
-                Directory.CreateDirectory(Path.Combine(CacheFolderPath, @".\localserver\widgets"));
+                Directory.CreateDirectory(Path.Combine(CacheFolderPath, @".\localserver\widgets-bili"));
 
                 if (!File.Exists(Path.Combine(CacheFolderPath, @".\localserver")))
                 {
@@ -203,8 +203,8 @@ namespace sigmanuts_webview2
                             currentWidget
                         };
 
-                    await File.WriteAllLinesAsync(Path.Combine(CacheFolderPath, @".\localserver\widgets\activeWidget.active"), current);
-                    widgetUrl = $"http://localhost:6969/widgets/{currentWidget}/widget.html";
+                    await File.WriteAllLinesAsync(Path.Combine(CacheFolderPath, @".\localserver\widgets-bili\activeWidget.active"), current);
+                    widgetUrl = $"http://localhost:6969/widgets-bili/{currentWidget}/widget.html";
                     widgetView.CoreWebView2.Navigate(widgetUrl);
                     break;
 
@@ -217,7 +217,7 @@ namespace sigmanuts_webview2
                     string[] dataToWrite = { widgetData };
                     try
                     {
-                        await File.WriteAllLinesAsync(Path.Combine(CacheFolderPath, $@".\localserver\widgets\{widgetName}\src\data.txt"), dataToWrite);
+                        await File.WriteAllLinesAsync(Path.Combine(CacheFolderPath, $@".\localserver\widgets-bili\{widgetName}\src\data.txt"), dataToWrite);
                     }
                     catch (Exception ex)
                     {
@@ -247,7 +247,7 @@ namespace sigmanuts_webview2
                     string[] _FIELDS = { FIELDS };
                     string[] _DATA = { DATA };
 
-                    string widgetDirectory = Path.Combine(CacheFolderPath, @$".\localserver\widgets\{_name}");
+                    string widgetDirectory = Path.Combine(CacheFolderPath, @$".\localserver\widgets-bili\{_name}");
                     string srcDirectory = Path.Combine(widgetDirectory, "src");
 
                     await File.WriteAllLinesAsync(Path.Combine(srcDirectory, @".\html.html"), _HTML);
@@ -256,10 +256,12 @@ namespace sigmanuts_webview2
                     await File.WriteAllLinesAsync(Path.Combine(srcDirectory, @".\fields.json"), _FIELDS);
                     await File.WriteAllLinesAsync(Path.Combine(srcDirectory, @".\data.txt"), _DATA);
 
+
+
                     WidgetOperations.CreateWidget(_name, appView);
 
                     HandleWidgets();
-                    widgetUrl = $"http://localhost:6969/widgets/{currentWidget}/widget.html";
+                    widgetUrl = $"http://localhost:6969/widgets-bili/{currentWidget}/widget.html";
                     widgetView.CoreWebView2.Navigate(widgetUrl);
                     break;
 
@@ -277,12 +279,12 @@ namespace sigmanuts_webview2
 
                 case "delete-widget":
                     string __name_ = stuff.name;
-                    string widgetDir = Path.Combine(CacheFolderPath, @$".\localserver\widgets\{__name_}");
+                    string widgetDir = Path.Combine(CacheFolderPath, @$".\localserver\widgets-bili\{__name_}");
                     Directory.Delete(widgetDir, true);
                     HandleWidgets();
 
                     string[] clearActive = { "" };
-                    await File.WriteAllLinesAsync(Path.Combine(CacheFolderPath, @".\localserver\widgets\activeWidget.active"), clearActive);
+                    await File.WriteAllLinesAsync(Path.Combine(CacheFolderPath, @".\localserver\widgets-bili\activeWidget.active"), clearActive);
                     await appView.CoreWebView2.ExecuteScriptAsync($"retrieveData().then(updateUI()); $('iframe').attr('src', ``)");
                     break;
 
@@ -292,7 +294,7 @@ namespace sigmanuts_webview2
                     break;
 
                 case "open-folder":
-                    Process.Start("explorer.exe",Path.Combine(CacheFolderPath, @".\localserver\widgets\"));
+                    Process.Start("explorer.exe",Path.Combine(CacheFolderPath, @".\localserver\widgets-bili\"));
                     break;
 
                 case "request-history":
@@ -348,14 +350,14 @@ namespace sigmanuts_webview2
         public void ToggleLogin()
         {
             ToggleChat(true);
-            webView.CoreWebView2.Navigate("https://www.youtube.com/account");
+            webView.CoreWebView2.Navigate("https://live.bilibili.com/");
         }
 
         public async void ToggleFullscreen()
         {
             /// Simple function to toggle fullscreen preview visibility on and off.
 
-            if (!File.Exists(Path.Combine(CacheFolderPath, $@".\localserver\widgets\{currentWidget.Replace("\r\n", string.Empty)}\widget.html")))
+            if (!File.Exists(Path.Combine(CacheFolderPath, $@".\localserver\widgets-bili\{currentWidget.Replace("\r\n", string.Empty)}\widget.html")))
             {
                 return;
             }
@@ -386,9 +388,9 @@ namespace sigmanuts_webview2
         public async void HandleWidgets()
         {
 
-            if (File.Exists(Path.Combine(CacheFolderPath, @".\localserver\widgets\activeWidget.active")))
+            if (File.Exists(Path.Combine(CacheFolderPath, @".\localserver\widgets-bili\activeWidget.active")))
             {
-                currentWidget = File.ReadAllText(Path.Combine(CacheFolderPath, @".\localserver\widgets\activeWidget.active"));
+                currentWidget = File.ReadAllText(Path.Combine(CacheFolderPath, @".\localserver\widgets-bili\activeWidget.active"));
             }
             else
             {
@@ -397,13 +399,13 @@ namespace sigmanuts_webview2
                     ""
                 };
 
-                await File.WriteAllLinesAsync(Path.Combine(CacheFolderPath, @".\localserver\widgets\activeWidget.active"), current);
+                await File.WriteAllLinesAsync(Path.Combine(CacheFolderPath, @".\localserver\widgets-bili\activeWidget.active"), current);
             }
 
             try
             {
-                string[] dirs = Directory.GetDirectories(Path.Combine(CacheFolderPath, @".\localserver\widgets"), "*", SearchOption.TopDirectoryOnly);
-                await File.WriteAllLinesAsync(Path.Combine(CacheFolderPath, @$".\localserver\widgets\widgets.ini"), dirs);
+                string[] dirs = Directory.GetDirectories(Path.Combine(CacheFolderPath, @".\localserver\widgets-bili"), "*", SearchOption.TopDirectoryOnly);
+                await File.WriteAllLinesAsync(Path.Combine(CacheFolderPath, @$".\localserver\widgets-bili\widgets.ini"), dirs);
             }
             catch (Exception e)
             {
@@ -423,10 +425,11 @@ namespace sigmanuts_webview2
             webView.CoreWebView2.DOMContentLoaded -= OnWebViewDOMContentLoaded;
             webView.Focus();
 
-            string pathToScript = System.IO.Path.Combine(
-                System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @".\web-src\js\script.js");
+            string pathToScript = Path.Combine(
+                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @".\web-src\js\script.js");
             string contents = File.ReadAllText(pathToScript);
-
+            Debug.WriteLine(contents);
+            Console.WriteLine(contents);
             await webView.CoreWebView2.ExecuteScriptAsync(contents);
         }
 
@@ -482,7 +485,7 @@ namespace sigmanuts_webview2
                                     webBuilder =>
                                     {
                                         webBuilder.WithOrigins("http://localhost:6969")
-                                        .WithOrigins("https://www.youtube.com")
+                                        .WithOrigins("https://live.bilibili.com")
                                         .AllowAnyHeader()
                                         .WithMethods("GET", "POST")
                                         .AllowCredentials();

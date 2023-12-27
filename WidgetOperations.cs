@@ -11,18 +11,18 @@ namespace sigmanuts_webview2
     public class WidgetOperations
     {
         public static string CacheFolderPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Sigmanuts");
-        public string WidgetsFolder = Path.Combine(CacheFolderPath, @".\localserver\widgets");
+        public string WidgetsFolder = Path.Combine(CacheFolderPath, @".\localserver\widgets-bili");
 
 
         public static async void CreateWidget(string widgetName, Microsoft.Web.WebView2.Wpf.WebView2 appView)
         {
             CreateWidgetFolder(widgetName);
 
-            string PathToHTML = Path.Combine(CacheFolderPath, @$".\localserver\widgets\{widgetName}\src\html.html");
-            string PathToCSS = Path.Combine(CacheFolderPath, @$".\localserver\widgets\{widgetName}\src\css.css");
-            string PathToJS = Path.Combine(CacheFolderPath, @$".\localserver\widgets\{widgetName}\src\js.js");
+            string PathToHTML = Path.Combine(CacheFolderPath, @$".\localserver\widgets-bili\{widgetName}\src\html.html");
+            string PathToCSS = Path.Combine(CacheFolderPath, @$".\localserver\widgets-bili\{widgetName}\src\css.css");
+            string PathToJS = Path.Combine(CacheFolderPath, @$".\localserver\widgets-bili\{widgetName}\src\js.js");
 
-            string EssentialJS = File.ReadAllText(Path.Combine(CacheFolderPath, @$".\localserver\widgets\{widgetName}\js.html"));
+            string EssentialJS = File.ReadAllText(Path.Combine(CacheFolderPath, @$".\localserver\widgets-bili\{widgetName}\js.html"));
 
             string HTML = "";
             if (File.Exists(PathToHTML))
@@ -63,14 +63,14 @@ namespace sigmanuts_webview2
                 widgetHTML
                 };
 
-            await File.WriteAllLinesAsync(Path.Combine(CacheFolderPath, @$".\localserver\widgets\{widgetName}\widget.html"), lines);
+            await File.WriteAllLinesAsync(Path.Combine(CacheFolderPath, @$".\localserver\widgets-bili\{widgetName}\widget.html"), lines);
             await appView.CoreWebView2.ExecuteScriptAsync($"retrieveData().then(updateUI()); $('iframe').attr('src', `widgets/{widgetName}/widget.html`)");
         }
 
         public static string CreateWidgetFolder(string widgetName)
         {
             string fileToCopy = Path.Combine(CacheFolderPath, @$".\localserver\js.html");
-            string widgetDirectory = Path.Combine(CacheFolderPath, @$".\localserver\widgets\{widgetName}");
+            string widgetDirectory = Path.Combine(CacheFolderPath, @$".\localserver\widgets-bili\{widgetName}");
             string srcDirectory = Path.Combine(widgetDirectory, "src");
 
             Directory.CreateDirectory(widgetDirectory);

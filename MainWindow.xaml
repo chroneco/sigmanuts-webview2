@@ -125,7 +125,7 @@
             <Grid Grid.Row="0" Height="32">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <!--App icon-->
-                    <Image Source="/Resources/icon.png" Width="18" Margin="10 2" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
+                    <Image Source="/Resources/icon-bili.png" Width="18" Margin="10 2" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
                         <Image.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
