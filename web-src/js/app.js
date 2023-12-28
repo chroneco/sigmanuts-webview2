@@ -1,4 +1,4 @@
-const CURRENTVERSION = 'BETAv0.6h2-chronut'
+const CURRENTVERSION = 'BETAv0.1-chronut-bili'
 
 var activeWidget = "";
 var groupList = [];
@@ -603,10 +603,10 @@ function changeUrl(animate = true) {
             $('#link-input').val(url);
         }*/
     }
-    /*
+    
     if (!isValid(url)) {
         valid = false;
-    }*/
+    }
 
     //if from login page
     if (!valid && animate == false) {
@@ -796,7 +796,7 @@ function fetchWidgets() {
                 .then(() => {
                     $('#widget-select').val(activeWidget);
                     if (!$('#widget-select').val()) {
-                        activeWidget = "YouTube";
+                        activeWidget = "Bili";
                         $('#widget-select').val(activeWidget);
                     }
                     $('#widget-select').selectmenu('refresh').trigger("selectmenuchange");

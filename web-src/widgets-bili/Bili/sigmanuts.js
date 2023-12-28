@@ -107,11 +107,8 @@ connection.on("ReceiveMessage", function (obj) {
         }
 
         if (!evt.event) return;
+
         
-        if(evt.listener === "message")
-        {
-            evt.event.data.text = decodeHtml(evt.event.data.text)
-        }        
         const event = new CustomEvent('onEventReceived', {
             detail: {
                 event: evt.event,

@@ -17,6 +17,11 @@ using Microsoft.AspNetCore.Hosting.Server;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using DeepL;
+using DeepL.Model;
+using IniParser;
+using IniParser.Model;
+using System.Collections.Generic;
 
 namespace sigmanuts_webview2
 {
@@ -46,11 +51,148 @@ namespace sigmanuts_webview2
         private string widgetUrl = $"http://localhost:6969/widgets-bili/{currentWidget}/widget.html";
 
         private SimpleHTTPServer myServer;
+        
+        //DeepL translation
+        private Translator translator;
+        private string CONFIG_FILE = Path.Combine(CacheFolderPath, @".\localserver\widgets-bili\config.ini");
+        const string CONFIG_AUTH_KEY = "deepl_auth_key";
+        const string CONFIG_TARGET_LANG_KEY = "target_lang";
+        private string targetLanguage = "EN-US";
+        private bool hasSentTranslationNotice = false;
+        private string authKey = "";
+
+        const int MAX_TRANSLATION_MESSAGES = 3;
+        const int TRANSLATION_INTERVAL_MS = 1000;
+
+        private System.Timers.Timer translateTimer;
+        private List<TranslationNode> translateBuffer;
+
+        private class TranslationNode
+        {
+            public string sourceText;
+            public string uid;
+            public string ct;
+            public string ts;
+            public string username;
+            public string sourceLang;
+            public string targetLang;
+            public string translatedText;
+
+            public TranslationNode(string sourceText, string username, string uid, string ct, string ts, string targetLanguage)
+            {
+                this.sourceText = sourceText;
+                this.username = username;
+                this.uid = uid;
+                this.ct = ct;
+                this.ts = ts;
+                this.targetLang = targetLanguage;
+            }
+
+            public void setTranslation(DeepL.Model.TextResult res)
+            {
+                this.sourceText = res.DetectedSourceLanguageCode;
+                this.translatedText = res.Text;
+            }
+        }
+
+        private void AddTranslationBuffer(string sourceText, string username, string uid, string ct, string ts)
+        {
+            TranslationNode node = new TranslationNode(sourceText, username, uid, ct, ts, targetLanguage);
+
+            webView.CoreWebView2.ExecuteScriptAsync("console.log('node: " + node.sourceText + "')");
+
+            if (translateBuffer==null)
+            {
+                translateBuffer = new List<TranslationNode>();
+            }
+            translateBuffer.Add(node);
+
+            if(translateBuffer.Count>=MAX_TRANSLATION_MESSAGES)
+            {
+                DoTranslations("maxmessage-"+MAX_TRANSLATION_MESSAGES);
+            }
+        }
+
+        private void IntervalDoTranslations(Object source, System.Timers.ElapsedEventArgs e)
+        {
+
+            this.Dispatcher.Invoke(() =>
+            {
+                DoTranslations("interval");
+            });
+
+        }
+
+        public int batchNo = 0;
+
+        private async void DoTranslations(string reason="")
+        {
+            if (translateBuffer == null) return;
+            if (translateBuffer.Count < 1) return;
+            batchNo++;
+            List<TranslationNode> nodes = translateBuffer;
+            translateBuffer = null;
+            List<string> texts = new List<string>();
+            int b = batchNo;
+            for(int i = 0;i<nodes.Count;i++)
+            {
+                texts.Add(nodes[i].sourceText);
+            }
+
+            try
+            {
+                TextResult[] tr = await translator.TranslateTextAsync(texts, "zh", targetLanguage);
+
+                for (int i = 0; i < tr.Length; i++)
+                {
+                    nodes[i].setTranslation(tr[i]);
+                }
+
+                for (int i = 0; i < nodes.Count; i++)
+                {
+
+                    TranslationNode node = nodes[i];
+                    string tl = Uri.EscapeDataString(node.translatedText);
+                    webView.CoreWebView2.ExecuteScriptAsync($"sendTranslationData(`{tl}`, '{node.sourceText}', '{node.username}' ,'{node.sourceLang}', '{node.targetLang}', '{node.uid}', '{node.ct}', '{node.ts}', '{reason}');");
+
+                }
+            }
+            catch(Exception e)
+            {
+                webView.CoreWebView2.ExecuteScriptAsync("console.log('ERROR CATCH: " + e.Message + "')");
+            }
+        }
 
         public MainWindow()
         {
             try
             {
+                var parser = new FileIniDataParser();
+                IniData translationConfig = parser.ReadFile(@CONFIG_FILE);
+                translationConfig.GetKey(CONFIG_AUTH_KEY);
+
+                authKey = translationConfig["sigmanuts-webview2-bili"][CONFIG_AUTH_KEY];
+                targetLanguage = translationConfig["sigmanuts-webview2-bili"][CONFIG_TARGET_LANG_KEY].ToUpper();
+                if (targetLanguage == "")
+                {
+                    targetLanguage = "EN";
+                }
+
+                if (authKey != "")
+                {
+                    translator = new Translator(authKey);
+                }
+
+                if(translator!=null)
+                {
+                    translateTimer = new System.Timers.Timer();
+                    translateTimer.Interval = TRANSLATION_INTERVAL_MS;
+                    translateTimer.Elapsed += IntervalDoTranslations;
+                    translateTimer.AutoReset = true;
+                    translateTimer.Enabled = true;
+
+                }
+
                 InitializeComponent();
                 Directory.CreateDirectory(Path.Combine(CacheFolderPath, @".\localserver\widgets-bili"));
 
@@ -116,6 +258,7 @@ namespace sigmanuts_webview2
 
             appView.CoreWebView2.WebMessageReceived += HandleWebMessage;
             webView.CoreWebView2.DOMContentLoaded += OnWebViewDOMContentLoaded;
+            webView.CoreWebView2.WebMessageReceived += HandleScriptMessage;
 
             appView.DefaultBackgroundColor = System.Drawing.Color.Transparent;
 
@@ -129,6 +272,11 @@ namespace sigmanuts_webview2
 
             try
             {
+                if(translator!=null)
+                {
+                    translator.Dispose();
+                }
+
                 // Delete WebView2 user data before application exits
                 string? webViewCacheDir = Path.Combine(CacheFolderPath, @".\EBWebView\Default\Cache");
                 var webViewProcessId = Convert.ToInt32(webView.CoreWebView2.BrowserProcessId);
@@ -194,6 +342,7 @@ namespace sigmanuts_webview2
                         };
 
                     await File.WriteAllLinesAsync(Path.Combine(CacheFolderPath, @".\localserver\config.ini"), lines);
+
                     break;
 
                 case "change-widget":
@@ -310,6 +459,34 @@ namespace sigmanuts_webview2
             }
         }
 
+
+        public async void HandleScriptMessage(object sender, CoreWebView2WebMessageReceivedEventArgs args)
+        {
+            if (args == null)
+            {
+                return;
+            }
+
+            String content = args.TryGetWebMessageAsString();
+
+            dynamic stuff = JsonConvert.DeserializeObject(content);
+            if (stuff == null) return;
+            if(stuff.listener == "request-translate")
+            {
+                if (translator == null) return;
+
+                string __source_text = stuff.text;
+                string __uid = stuff.uid;
+                string __ct = stuff.ct;
+                string __ts = stuff.ts;
+                string __username = stuff.username;
+
+                AddTranslationBuffer(__source_text, __username, __uid, __ct, __ts);
+            }            
+         }
+
+
+
         public void ToggleChat(bool active)
         {
             /// Simple function to toggle chat visibility on and off.
@@ -421,7 +598,7 @@ namespace sigmanuts_webview2
         private async void OnWebViewDOMContentLoaded(object sender, CoreWebView2DOMContentLoadedEventArgs arg)
         {
             /// This function injects scraping script into YouTube live chat. 
-
+            /// 
             webView.CoreWebView2.DOMContentLoaded -= OnWebViewDOMContentLoaded;
             webView.Focus();
 
@@ -431,6 +608,7 @@ namespace sigmanuts_webview2
             Debug.WriteLine(contents);
             Console.WriteLine(contents);
             await webView.CoreWebView2.ExecuteScriptAsync(contents);
+            await webView.CoreWebView2.ExecuteScriptAsync($"sendTranslationStatus('{translator != null}');");
         }
 
         private async void OnNavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs arg)

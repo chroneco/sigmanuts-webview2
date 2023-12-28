@@ -62,8 +62,8 @@ h4 {
     --var-preview-bg-color: #101010;
     --var-nav: #292929;
     --var-text-color: #e9e9e9;
-    --var-accent-color: #dd7f2f;
-    --var-accent-color-transparent: #da7e2e2e;
+    --var-accent-color: #00AEEC;
+    --var-accent-color-transparent: #00AEEC2e;
     --var-icon-color-gray: rgba(255, 255, 255, 0.4);
     --var-border-color-gray: rgba(255, 255, 255, 0.1);
     --var-active-color: white;
@@ -75,8 +75,8 @@ h4 {
     --var-preview-bg-color: #bcbcbc;
     --var-nav: #292929;
     --var-text-color: #212121;
-    --var-accent-color: #dd7f2f;
-    --var-accent-color-transparent: #da7e2e2e;
+    --var-accent-color: #00AEEC;
+    --var-accent-color-transparent: #00AEEC2e;
     --var-icon-color-gray: rgba(0, 0, 0, 0.4);
     --var-border-color-gray: rgba(0, 0, 0, 0.1);
     --var-active-color: black;

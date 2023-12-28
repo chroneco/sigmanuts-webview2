@@ -1,0 +1,276 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>sigmanuts_webview2</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+	<PublishSingleFile>true</PublishSingleFile>
+  <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+  <ApplicationIcon>sigmanuts icon-bili.ico</ApplicationIcon>
+  <AssemblyName>sigmanuts-webview2-bili</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="index.html" />
+    <None Remove="Resources\icon.png" />
+    <None Remove="Resources\Sigmanuts.png" />
+    <None Remove="script.js" />
+    <None Remove="web-src\app.html" />
+    <None Remove="web-src\assets\material-rounded.woff2" />
+    <None Remove="web-src\assets\sad.png" />
+    <None Remove="web-src\css\app.css" />
+    <None Remove="web-src\css\app_footer.css" />
+    <None Remove="web-src\css\app_nav.css" />
+    <None Remove="web-src\css\google_font.css" />
+    <None Remove="web-src\css\images\ui-icons_444444_256x240.png" />
+    <None Remove="web-src\css\images\ui-icons_555555_256x240.png" />
+    <None Remove="web-src\css\images\ui-icons_777620_256x240.png" />
+    <None Remove="web-src\css\images\ui-icons_777777_256x240.png" />
+    <None Remove="web-src\css\images\ui-icons_cc0000_256x240.png" />
+    <None Remove="web-src\css\images\ui-icons_ffffff_256x240.png" />
+    <None Remove="web-src\css\jquery-ui.min.css" />
+    <None Remove="web-src\css\settings.css" />
+    <None Remove="web-src\css\store.css" />
+    <None Remove="web-src\index.html" />
+    <None Remove="web-src\js.html" />
+    <None Remove="web-src\js\app.js" />
+    <None Remove="web-src\js\appUpload.js" />
+    <None Remove="web-src\js\embedding.js" />
+    <None Remove="web-src\js\FileSaver.js" />
+    <None Remove="web-src\js\iro.js" />
+    <None Remove="web-src\js\jquery-3.6.3.min.js" />
+    <None Remove="web-src\js\jquery-ui.min.js" />
+    <None Remove="web-src\js\jszip.min.js" />
+    <None Remove="web-src\js\script - Copy.js" />
+    <None Remove="web-src\js\script.js" />
+    <None Remove="web-src\js\settings.js" />
+    <None Remove="web-src\js\signalr.js" />
+    <None Remove="web-src\js\store.js" />
+    <None Remove="web-src\widgets-bili\Bili\basic.js" />
+    <None Remove="web-src\widgets-bili\Bili\jquery-3.6.0.js" />
+    <None Remove="web-src\widgets-bili\Bili\sigmanuts.js" />
+    <None Remove="web-src\widgets-bili\Bili\src\data.txt" />
+    <None Remove="web-src\widgets-bili\Bili\widget.html" />
+    <None Remove="web-src\widgets-bili\defaultWidgets.ini" />
+    <None Remove="web-src\widgets\defaultWidgets.ini" />
+    <None Remove="web-src\widgets\Bili\basic.js" />
+    <None Remove="web-src\widgets\Bili\jquery-3.6.0.js" />
+    <None Remove="web-src\widgets\Bili\sigmanuts.js" />
+    <None Remove="web-src\widgets\Bili\src\data.txt" />
+    <None Remove="web-src\widgets\Bili\widget.html" />
+    <None Remove="web-src\widgets\YouTube\basic.js" />
+    <None Remove="web-src\widgets\YouTube\jquery-3.6.0.js" />
+    <None Remove="web-src\widgets\YouTube\sigmanuts.js" />
+    <None Remove="web-src\widgets\YouTube\src\data.txt" />
+    <None Remove="web-src\widgets\YouTube\widget.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\icon-bili.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sigmanuts.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\app.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\assets\material-rounded.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\assets\sad.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\css\app.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\css\app_footer.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\css\app_nav.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\css\google_font.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\css\images\ui-icons_444444_256x240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\css\images\ui-icons_555555_256x240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\css\images\ui-icons_777620_256x240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\css\images\ui-icons_777777_256x240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\css\images\ui-icons_cc0000_256x240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\css\images\ui-icons_ffffff_256x240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\css\jquery-ui.min.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\css\settings.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\css\store.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\js.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\js\app.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\js\appUpload.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\js\embedding.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\js\FileSaver.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\js\iro.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\js\jquery-3.6.3.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\js\jquery-ui.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\js\jszip.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\js\script - Copy.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\js\script.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\js\settings.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\js\signalr.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\js\store.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets-bili\Bili\basic.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets-bili\Bili\jquery-3.6.0.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets-bili\Bili\sigmanuts.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets-bili\Bili\src\data.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets-bili\Bili\widget.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets-bili\defaultWidgets.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets\defaultWidgets.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets\Bili\basic.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets\Bili\jquery-3.6.0.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets\Bili\sigmanuts.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets\Bili\src\data.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets\Bili\widget.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets\YouTube\basic.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets\YouTube\jquery-3.6.0.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets\YouTube\sigmanuts.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets\YouTube\src\data.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web-src\widgets\YouTube\widget.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+	<FrameworkReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
+	<PackageReference Include="DeepL.net" Version="1.8.0" />
+	<PackageReference Include="ini-parser" Version="2.5.2" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1518.46" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="web-src\css\widgets\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="web-src\favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="web-src\tutorial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="web-src\widgets-bili\Bili\src\fields.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="web-src\widgets-bili\Bili\youtube.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="web-src\widgets-bili\config.ini">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="web-src\widgets\Bili\src\fields.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="web-src\widgets\Bili\youtube.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="web-src\widgets\YouTube\src\fields.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="web-src\widgets\YouTube\youtube.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
