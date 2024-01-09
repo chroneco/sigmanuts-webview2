@@ -61,8 +61,8 @@ namespace sigmanuts_webview2
         private bool hasSentTranslationNotice = false;
         private string authKey = "";
 
-        const int MAX_TRANSLATION_MESSAGES = 3;
-        const int TRANSLATION_INTERVAL_MS = 1000;
+        const int MAX_TRANSLATION_MESSAGES = 5;
+        const int TRANSLATION_INTERVAL_MS = 500;
 
         private System.Timers.Timer translateTimer;
         private List<TranslationNode> translateBuffer;
@@ -141,7 +141,7 @@ namespace sigmanuts_webview2
 
             try
             {
-                TextResult[] tr = await translator.TranslateTextAsync(texts, "zh", targetLanguage);
+                TextResult[] tr = await translator.TranslateTextAsync(texts, null, targetLanguage);
 
                 for (int i = 0; i < tr.Length; i++)
                 {

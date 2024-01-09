@@ -152,17 +152,17 @@
                                     </span>
                                 </button>
 
-                                <button id="refresh-widget">
+                                <!--<button id="refresh-widget">
                                     <span class="material-symbols-rounded outline">
                                         refresh
                                     </span>
-                                </button>
+                                </button>-->
 
-                                <button id="remove">
+                                <!--<button id="remove">
                                     <span class="material-symbols-rounded fill">
                                         delete
                                     </span>
-                                </button>
+                                </button>-->
                             </div>
                         </div>
 
@@ -227,114 +227,138 @@
 
                     <div class="preview-wrapper">
 
-                        <div class="preview-nav" style="flex-direction: row-reverse;">
-                            <!--
-    <div class="left">
-        <test-buttons>
-            <test-button id="test-message" class="tooltip" data-tooltip="Test Message">
-                <span id="text" style=""></span>
-                <span class="material-symbols-rounded outline">
-                    chat
-                </span>
-            </test-button>
-            <test-button id="test-superchat" class="tooltip" data-tooltip="Test Superchat">
-                <span id="text" style=""></span>
-                <span class="material-symbols-rounded outline">
-                    local_atm
-                </span>
-            </test-button>
-            <test-button id="test-sticker" class="tooltip" data-tooltip="Test Supersticker">
-                <span id="text" style=""></span>
-                <span class="material-symbols-rounded outline">
-                    sentiment_very_satisfied
-                </span>
-            </test-button>
-            <test-button id="test-member" class="tooltip" data-tooltip="Test Membership">
-                <span id="text" style=""></span>
-                <span class="material-symbols-rounded outline">
-                    workspace_premium
-                </span>
-            </test-button>
-            <test-button id="test-gift" class="tooltip" data-tooltip="Test Membership Gift">
-                <span id="text" style=""></span>
-                <span class="material-symbols-rounded outline">
-                    redeem
-                </span>
-            </test-button>
-        </test-buttons>
+                        <div class="preview-nav">
+                            
+                            <div class="left">
+                                <test-buttons>
+                                    <test-button id="test-message" class="tooltip" data-tooltip="Test Chat">
+                                        <span id="text" style=""></span>
+                                        <span class="material-symbols-rounded outline">
+                                            chat
+                                        </span>
+                                    </test-button>
+                                    <test-button id="test-sticker" class="tooltip" data-tooltip="Test Emote Chat">
+                                        <span id="text" style=""></span>
+                                        <span class="material-symbols-rounded outline">
+                                            sentiment_very_satisfied
+                                        </span>
+                                    </test-button>
+                                    <test-button id="test-gift" class="tooltip" data-tooltip="Test Gift">
+                                        <span id="text" style=""></span>
+                                        <span class="material-symbols-rounded outline">
+                                            redeem
+                                        </span>
+                                    </test-button>
+                                    <test-button id="test-superchat" class="tooltip" data-tooltip="Test Superchat">
+                                        <span id="text" style=""></span>
+                                        <span class="material-symbols-rounded outline">
+                                            local_atm
+                                        </span>
+                                    </test-button>
+                                    <test-button id="test-member" class="tooltip" data-tooltip="Test Guard Buy">
+                                        <span id="text" style=""></span>
+                                        <span class="material-symbols-rounded outline">
+                                            workspace_premium
+                                        </span>
+                                    </test-button>
+                                </test-buttons>
 
-        <test-buttons style="padding: 2px 12px; gap: 4px">
-            <test-button id="test-superchat-1" class="tooltip" style="height: 20px;" data-tooltip="Test Superchat Blue">
-                <span id="text" style=""></span>
-                <span class="material-symbols-rounded fill" style="color: rgba(30,136,229,1); font-size: 20px">
-                    local_atm
-                </span>
-            </test-button>
-            <test-button id="test-superchat-2" class="tooltip" style="height: 20px;" data-tooltip="Test Superchat Cyan">
-                <span id="text" style=""></span>
-                <span class="material-symbols-rounded fill" style="color: rgba(0,229,255,1); font-size: 20px">
-                    local_atm
-                </span>
-            </test-button>
-            <test-button id="test-superchat-3" class="tooltip" style="height: 20px;" data-tooltip="Test Superchat Green">
-                <span id="text" style=""></span>
-                <span class="material-symbols-rounded fill" style="color: rgba(29,233,182,1); font-size: 20px">
-                    local_atm
-                </span>
-            </test-button>
-            <test-button id="test-superchat-4" class="tooltip" style="height: 20px;" data-tooltip="Test Superchat Yellow">
-                <span id="text" style=""></span>
-                <span class="material-symbols-rounded fill" style="color: rgba(255,202,40,1); font-size: 20px">
-                    local_atm
-                </span>
-            </test-button>
-            <test-button id="test-superchat-5" class="tooltip" style="height: 20px;" data-tooltip="Test Superchat Orange">
-                <span id="text" style=""></span>
-                <span class="material-symbols-rounded fill" style="color: rgba(245,124,0,1); font-size: 20px">
-                    local_atm
-                </span>
-            </test-button>
-            <test-button id="test-superchat-6" class="tooltip" style="height: 20px;" data-tooltip="Test Superchat Magenta">
-                <span id="text" style=""></span>
-                <span class="material-symbols-rounded fill" style="color: rgba(233,30,99,1); font-size: 20px">
-                    local_atm
-                </span>
-            </test-button>
-            <test-button id="test-superchat-7" class="tooltip" style="height: 20px;" data-tooltip="Test Superchat Red">
-                <span id="text" style=""></span>
-                <span class="material-symbols-rounded fill" style="color: rgba(230,33,23,1); font-size: 20px">
-                    local_atm
-                </span>
-            </test-button>
-        </test-buttons>
+                                <test-buttons>
+                                    <test-button id="test-member-1" class="tooltip" data-tooltip="Test Captain Buy">
+                                        <span id="text" style=""></span>
+                                        <span class="material-symbols-rounded outline">
+                                            workspace_premium
+                                        </span>
+                                        1
+                                    </test-button>
+                                    <test-button id="test-member-2" class="tooltip" data-tooltip="Test Admiral Buy">
+                                        <span id="text" style=""></span>
+                                        <span class="material-symbols-rounded outline">
+                                            workspace_premium
+                                        </span>
+                                        2
+                                    </test-button>
+                                    <test-button id="test-member-3" class="tooltip" data-tooltip="Test Governor Buy">
+                                        <span id="text" style=""></span>
+                                        <span class="material-symbols-rounded outline">
+                                            workspace_premium
+                                        </span>
+                                        3
+                                    </test-button>
+                                </test-buttons>
+                                <!--
+    <test-buttons style="padding: 2px 12px; gap: 4px">
+        <test-button id="test-superchat-1" class="tooltip" style="height: 20px;" data-tooltip="Test Superchat Blue">
+            <span id="text" style=""></span>
+            <span class="material-symbols-rounded fill" style="color: rgba(30,136,229,1); font-size: 20px">
+                local_atm
+            </span>
+        </test-button>
+        <test-button id="test-superchat-2" class="tooltip" style="height: 20px;" data-tooltip="Test Superchat Cyan">
+            <span id="text" style=""></span>
+            <span class="material-symbols-rounded fill" style="color: rgba(0,229,255,1); font-size: 20px">
+                local_atm
+            </span>
+        </test-button>
+        <test-button id="test-superchat-3" class="tooltip" style="height: 20px;" data-tooltip="Test Superchat Green">
+            <span id="text" style=""></span>
+            <span class="material-symbols-rounded fill" style="color: rgba(29,233,182,1); font-size: 20px">
+                local_atm
+            </span>
+        </test-button>
+        <test-button id="test-superchat-4" class="tooltip" style="height: 20px;" data-tooltip="Test Superchat Yellow">
+            <span id="text" style=""></span>
+            <span class="material-symbols-rounded fill" style="color: rgba(255,202,40,1); font-size: 20px">
+                local_atm
+            </span>
+        </test-button>
+        <test-button id="test-superchat-5" class="tooltip" style="height: 20px;" data-tooltip="Test Superchat Orange">
+            <span id="text" style=""></span>
+            <span class="material-symbols-rounded fill" style="color: rgba(245,124,0,1); font-size: 20px">
+                local_atm
+            </span>
+        </test-button>
+        <test-button id="test-superchat-6" class="tooltip" style="height: 20px;" data-tooltip="Test Superchat Magenta">
+            <span id="text" style=""></span>
+            <span class="material-symbols-rounded fill" style="color: rgba(233,30,99,1); font-size: 20px">
+                local_atm
+            </span>
+        </test-button>
+        <test-button id="test-superchat-7" class="tooltip" style="height: 20px;" data-tooltip="Test Superchat Red">
+            <span id="text" style=""></span>
+            <span class="material-symbols-rounded fill" style="color: rgba(230,33,23,1); font-size: 20px">
+                local_atm
+            </span>
+        </test-button>
+    </test-buttons>
 
-        <test-buttons style="font-size: 12px !important; padding: 4px 12px; justify-content: space-between; gap: 4px;">
-            <test-button id="test-gift-5" class="tooltip" style="height: 16px; align-items: center; display: flex;" data-tooltip="Test Membership Gift x5">
-                <span id="text" style=""></span>
-                <span class="material-symbols-rounded outline" style="font-size: 16px">
-                    redeem
-                </span>x5
-            </test-button>
-            <test-button id="test-gift-10" class="tooltip" style="height: 16px; align-items: center; display: flex;" data-tooltip="Test Membership Gift x10">
-                <span id="text" style=""></span>
-                <span class="material-symbols-rounded outline" style="font-size: 16px">
-                    redeem
-                </span>x10
-            </test-button>
-            <test-button id="test-gift-20" class="tooltip" style="height: 16px; align-items: center; display: flex;" data-tooltip="Test Membership Gift x20">
-                <span id="text" style=""></span>
-                <span class="material-symbols-rounded outline" style="font-size: 16px">
-                    redeem
-                </span>x20
-            </test-button>
-            <test-button id="test-gift-50" class="tooltip" style="height: 16px; align-items: center; display: flex;" data-tooltip="Test Membership Gift x50">
-                <span id="text" style=""></span>
-                <span class="material-symbols-rounded outline" style="font-size: 16px">
-                    redeem
-                </span>x50
-            </test-button>
-        </test-buttons>
-                        </div>-->
+    <test-buttons style="font-size: 12px !important; padding: 4px 12px; justify-content: space-between; gap: 4px;">
+        <test-button id="test-gift-5" class="tooltip" style="height: 16px; align-items: center; display: flex;" data-tooltip="Test Membership Gift x5">
+            <span id="text" style=""></span>
+            <span class="material-symbols-rounded outline" style="font-size: 16px">
+                redeem
+            </span>x5
+        </test-button>
+        <test-button id="test-gift-10" class="tooltip" style="height: 16px; align-items: center; display: flex;" data-tooltip="Test Membership Gift x10">
+            <span id="text" style=""></span>
+            <span class="material-symbols-rounded outline" style="font-size: 16px">
+                redeem
+            </span>x10
+        </test-button>
+        <test-button id="test-gift-20" class="tooltip" style="height: 16px; align-items: center; display: flex;" data-tooltip="Test Membership Gift x20">
+            <span id="text" style=""></span>
+            <span class="material-symbols-rounded outline" style="font-size: 16px">
+                redeem
+            </span>x20
+        </test-button>
+        <test-button id="test-gift-50" class="tooltip" style="height: 16px; align-items: center; display: flex;" data-tooltip="Test Membership Gift x50">
+            <span id="text" style=""></span>
+            <span class="material-symbols-rounded outline" style="font-size: 16px">
+                redeem
+            </span>x50
+        </test-button>
+    </test-buttons>-->
+                            </div>
                             <div class="right" style="width: 165px;">
 
                                 <preview-button id="copy-link">

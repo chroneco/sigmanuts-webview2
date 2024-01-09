@@ -901,31 +901,23 @@ $('#test-message').on('click', () => {
 $('#test-superchat').on('click', () => {
     sendTestMessage("test-superchat");
 });
-for (let i = 1; i <= 7; i++) {
-    $('#test-superchat-'+i).on('click', () => {
-        sendTestMessage("test-superchat-"+i);
-    });
-}
 $('#test-sticker').on('click', () => {
     sendTestMessage("test-sticker");
 });
 $('#test-member').on('click', () => {
     sendTestMessage("test-member");
 });
+$('#test-member-1').on('click', () => {
+    sendTestMessage("test-member-1");
+});
+$('#test-member-2').on('click', () => {
+    sendTestMessage("test-member-2");
+});
+$('#test-member-3').on('click', () => {
+    sendTestMessage("test-member-3");
+});
 $('#test-gift').on('click', () => {
     sendTestMessage("test-gift");
-});
-$('#test-gift-5').on('click', () => {
-    sendTestMessage("test-gift-5");
-});
-$('#test-gift-10').on('click', () => {
-    sendTestMessage("test-gift-10");
-});
-$('#test-gift-20').on('click', () => {
-    sendTestMessage("test-gift-20");
-});
-$('#test-gift-50').on('click', () => {
-    sendTestMessage("test-gift-50");
 });
 
 
